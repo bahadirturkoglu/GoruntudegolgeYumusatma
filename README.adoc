@@ -36,3 +36,5 @@
 Matematiksel olarak histogram; gruplandırılmış bir veri dağılımının sütun grafiğiyle gösterimidir. Görüntüde ise her piksel seviyesini gösteren bir ölçüttür. Histogram grafiklerine bakılarak bir görüntüde parlaklık durumu veya görüntünün tonlamaları hakkında bilgi edinilebilmektedir. Aşağıda görüntüler ve histogram grafiklerinin örnekleri yer almaktadır. +
 
 image::1.png[R]
+
+image::2.png[r2]
