@@ -90,8 +90,8 @@ Bu formülü uygulama adımlarına dökecek olursak; +
 
 *n*: giriş görüntüsündeki toplam piksel sayısı (n0+n1+…….+nL-1 = n) +
 *nj (nk )*: j. gri seviyedeki piksel sayısı +
-* L*: mümkün olan (veya istenilen) toplam gri seviye sayısı( 8 bit renk derinliğinde 255 v.b) +
- *sk* : Daha iyi kontraslı bir görüntü elde etmek için gri seviye dönüşüm değeri. +
+*L*: mümkün olan (veya istenilen) toplam gri seviye sayısı( 8 bit renk derinliğinde 255 v.b) +
+*sk* : Daha iyi kontraslı bir görüntü elde etmek için gri seviye dönüşüm değeri. +
 Amaç; imgedeki düşük görünürlüğü iyileştirmektir. +
 
 === 3.4) Python ile Histogram Dengelemenin Görüntüye Uygulanması
