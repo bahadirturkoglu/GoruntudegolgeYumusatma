@@ -10,4 +10,29 @@
 .. Sonuçlar
 . Referanslar
 
+|===
+|Tarih|Değişiklik|Kişi
+
+|05.01.2017
+|Görüntüde Gölge Yumuşatma
+
+
+|Gönül Toktay
+|10.01.2017
+ 
+|Görüntüde Gölge Yumuşatma
+|M.Sıla Genç
+
+|30.01.2017
+
+|Düzenleme
+|Merve Tafralı
+
+|===
+
+== 3)Histogram Aralığı ile Gölge Tespiti
+
+=== 3.1)  Histogram Nedir?
+Matematiksel olarak histogram; gruplandırılmış bir veri dağılımının sütun grafiğiyle gösterimidir. Görüntüde ise her piksel seviyesini gösteren bir ölçüttür. Histogram grafiklerine bakılarak bir görüntüde parlaklık durumu veya görüntünün tonlamaları hakkında bilgi edinilebilmektedir. Aşağıda görüntüler ve histogram grafiklerinin örnekleri yer almaktadır. +
+
 image::1.png[R]
