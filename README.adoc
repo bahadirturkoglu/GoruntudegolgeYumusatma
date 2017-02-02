@@ -38,3 +38,15 @@ Matematiksel olarak histogram; gruplandırılmış bir veri dağılımının sü
 image::1.png[R]
 
 image::2.png[r2]
+
+Tabloların yatay ekseni gri değer aralıklarını düşey eksenler ise bu aralıklardaki piksel sayısını göstermektedir. 
+
+=== 3.2)Histogram Dengeleme
+Bir görüntüdeki renk değerlerinin belli bir yerde kümelenmiş olmasından kaynaklanan, renk dağılımı bozukluğunu gidermek için kullanılan bir yöntemdir. +
+Histogram matematiksel olarak aşağıdaki şekilde gösterilebilir. +
+→h(rk )=nk +
+
+rk : k’nıncı parlaklık değeri +
+nk : k nıncı parlaklık değerinin görüntüdeki sayısı +
+
+
