@@ -9,3 +9,5 @@
 .. Python ile Histogram Dengelemenin Görüntüye Uygulanması
 .. Sonuçlar
 . Referanslar
+
+image::1.png[R]
