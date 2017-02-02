@@ -49,4 +49,25 @@ Histogram matematiksel olarak aşağıdaki şekilde gösterilebilir. +
 rk : k’nıncı parlaklık değeri +
 nk : k nıncı parlaklık değerinin görüntüdeki sayısı +
 
+image::15.png[r3]
+
+8-bit parlaklıklı görüntüde 256 gri seviye vardır. Örnek olarak tüm değerler ilk 100 değerde toplanırsa renkleri fark etmek zorlaşmaktadır. +
+Dönüştürülmüş ve orjinal olan histogramlar grafiklerde görüldüğü üzere olasılık yoğnluğu olarakta gösterilebilmektedir. +
+
+image::16.png[r4]
+
+Görüntü histogramı incelendiğinde ani artışlar ton grup aralıkları olarak ifade edilebilmektedir. Görüntüde var olabilen bu kısımlar gölge olarak belirlenerek gerekli işlemler yapılabilmektedir. +
+
+Sayısal görüntü işlemede en basit ve en çok kullanılan araçlardan birisi gri seviyesi histogramıdır. Bu fonksiyon  görüntünün gri seviyesi içeriği hakkında bilgiler elde edilmesini sağlar. Histogramdan elde edilebilecek bazı bilgiler: +
+
+* Koyu bir görüntünün histogram grafiğinin düşük gri seviye bölgesine yığılacağı açıktır.
+
+* Parlak (Açık renk) düzgün bir görüntünün histogram grafiğinin büyük gri seviye bölgesine yığılacağı açıktır.
+
+* Eğer histogram bir bölgeye yığılmış ise ( yani gri sviye ekseninin belirli bir bölgesine) bu görüntünün kontrastı kötüdür denir.
+
+* İyi kontraslı bir resmin histogram grafiği tüm gri seviye değerlerine eşit yayılmış olduğunu açıklar.
+
+
+
 
