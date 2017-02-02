@@ -88,54 +88,127 @@ Bu formülü uygulama adımlarına dökecek olursak; +
 
  . Eski (Orijinal) gri seviye değerleri ile; 3.adımda elde edilen gri seviye değerleri biribirine karşılık düşürülür ve yeni histogram grafiği çizilir.
 
-*n*: giriş görüntüsündeki toplam piksel sayısı (n0+n1+…….+nL-1 = n) 
-*nj (nk )*: j. gri seviyedeki piksel sayısı
-* L*: mümkün olan (veya istenilen) toplam gri seviye sayısı( 8 bit renk derinliğinde 255 v.b)
- *sk* : Daha iyi kontraslı bir görüntü elde etmek için gri seviye dönüşüm değeri.
-Amaç; imgedeki düşük görünürlüğü iyileştirmektir.
+*n*: giriş görüntüsündeki toplam piksel sayısı (n0+n1+…….+nL-1 = n) +
+*nj (nk )*: j. gri seviyedeki piksel sayısı +
+* L*: mümkün olan (veya istenilen) toplam gri seviye sayısı( 8 bit renk derinliğinde 255 v.b) +
+ *sk* : Daha iyi kontraslı bir görüntü elde etmek için gri seviye dönüşüm değeri. +
+Amaç; imgedeki düşük görünürlüğü iyileştirmektir. +
 
 === 3.4) Python ile Histogram Dengelemenin Görüntüye Uygulanması
 
 [source,python]
 ---------------------------------------------------------------------
-import numpy as np       #numpy kütüphanesi eklenmiştir.
-import pylab as plt     # Ekrana grafik olarak çizdirmemizi sağlayacak pylab kütüphanesinden plt modülü eklenmiştir.
-import matplotlib.image as mpimg    #Görüntünün çok yönlü numpy dizisi olarak alınmasını sağlayacağımız mpimg modülü eklenmiştir.
+import numpy as np      
 
-def imhist(im):         #imhist fonksiyonu ile parametre olarak gönderilen görüntünün renk histogramı hesaplanır.
-    m, n = im.shape     #Görüntünün numpy dizisi olarak boyutu m,n değişkenlerine atanır.
-    h = [0.0] * 256     #Histogram değerlerini tutacak h adında 256 elemanlık bir matris tanımlanır.
-    for i in range(m):      #Görüntünün boyutu değerince oluşturulan iç içe döngüler ile görüntü üzerinde dolaşılır.
+#numpy kütüphanesi eklenmiştir.
+
+import pylab as plt     
+
+# Ekrana grafik olarak çizdirmemizi sağlayacak pylab kütüphanesinden plt modülü eklenmiştir.
+
+import matplotlib.image as mpimg   
+
+#Görüntünün çok yönlü numpy dizisi olarak alınmasını sağlayacağımız mpimg modülü eklenmiştir.
+
+
+def imhist(im):         
+
+#imhist fonksiyonu ile parametre olarak gönderilen görüntünün renk histogramı hesaplanır.
+
+    m, n = im.shape    
+    
+    #Görüntünün numpy dizisi olarak boyutu m,n değişkenlerine atanır.
+    
+    h = [0.0] * 256     
+    
+    #Histogram değerlerini tutacak h adında 256 elemanlık bir matris tanımlanır.
+    
+    for i in range(m):      
+    
+    #Görüntünün boyutu değerince oluşturulan iç içe döngüler ile görüntü üzerinde dolaşılır.
+    
         for j in range(n):
-            h[im[i, j]]+=1      #Görüntünün tüm piksel değerleri için histogram bir arttırılarak histogram matrisi bulunur.
-    return np.array(h)/(m*n)        #Bulunan histogram değerleri numpy dizisine dönüştürülür ve görüntünün büyüklüğüne bölünür. Böylece ilk adım olan renk aralıklarını toplam boyuta bölerek renk frekansları bulma işlemi gerçekleştirilir.
+            h[im[i, j]]+=1      
+            
+            #Görüntünün tüm piksel değerleri için histogram bir arttırılarak histogram matrisi bulunur.
+            
+    return np.array(h)/(m*n)        
+    
+    #Bulunan histogram değerleri numpy dizisine dönüştürülür ve görüntünün büyüklüğüne bölünür. Böylece ilk adım olan renk aralıklarını toplam boyuta bölerek renk frekansları bulma işlemi gerçekleştirilir.
 
-def cumsum(h):      #Kümülatif olarak tüm histogram değerleri toplanır.
+def cumsum(h):      
+
+#Kümülatif olarak tüm histogram değerleri toplanır.
+
     return [sum(h[:i+1]) for i in range(len(h))]
 
-def histeq(im):     #Histogram eşitleme işlemini yapacağımız fonksiyonumuz resim parametresi ile çalışmaktadır.
-    h = imhist(im)      #Gelen resmin histogram tablosu çıkarılır.
-    cdf = np.array(cumsum(h))       #Kümülatif dağılım fonksiyonu hesaplanır ve numpy dizisine dönüştürülür.
-    sk = np.uint8(255 * cdf)    #Kümülatif dağılım fonksiyonu değerleri kullanılarak görüntünün değerleri 0-255 arasına çekilir yani normalize bir gri değer elde edilir.
-    s1, s2 = im.shape       #Görüntünün boyutları alınır.
-    new_im = np.zeros_like(im)       #Yeni görüntü için 0'lık bir np dizisi oluşturulmuştur.
-    for i in range(0, s1):      #Görüntü boyutu değerince iç içe döngü oluşturulur.
-        for j in range(0, s2):
-            new_im[i, j] = sk[im[i, j]]     #Görüntüden alınan piksel değerleri ile Kümülatif dağılım fonksiyonundan aldığımız değerleri eşleyerek yeni görüntünün piksel değerlerini elde ediyoruz.
-    return new_im       #Elde edilen görüntü geri gönderilir.
+def histeq(im):     
 
-img = np.uint8(mpimg.imread('image.png')*255.0)     #İlk olarak png formatındaki görüntümüzü matris biçiminde 0-255 değerleri arasına indirgeyerek matris olarak okuyoruz.#Okuduğumuz görüntüyü griye çevirme işlemi için kullanılan katsayılar ile çarparak görüntüyü griye çeviriyoruz.Ve çevirme işleminden sonra görüntü tekrar normalize olarak 0-255 değerleri arasına çekilir.
+#Histogram eşitleme işlemini yapacağımız fonksiyonumuz resim parametresi ile çalışmaktadır.
+
+    h = imhist(im)      
+    
+    #Gelen resmin histogram tablosu çıkarılır.
+    
+    cdf = np.array(cumsum(h))       
+    
+    #Kümülatif dağılım fonksiyonu hesaplanır ve numpy dizisine dönüştürülür.
+    
+    sk = np.uint8(255 * cdf)    
+    
+    #Kümülatif dağılım fonksiyonu değerleri kullanılarak görüntünün değerleri 0-255 arasına çekilir yani normalize bir gri değer elde edilir.
+    s1, s2 = im.shape      
+    
+    #Görüntünün boyutları alınır.
+    
+    new_im = np.zeros_like(im)       
+    
+    #Yeni görüntü için 0'lık bir np dizisi oluşturulmuştur.
+    
+    for i in range(0, s1):      
+    
+    #Görüntü boyutu değerince iç içe döngü oluşturulur.
+    
+        for j in range(0, s2):
+            new_im[i, j] = sk[im[i, j]]     
+            
+            #Görüntüden alınan piksel değerleri ile Kümülatif dağılım fonksiyonundan aldığımız değerleri eşleyerek yeni görüntünün piksel değerlerini elde ediyoruz.
+            
+    return new_im       
+    
+    #Elde edilen görüntü geri gönderilir.
+    
+
+img = np.uint8(mpimg.imread('image.png')*255.0)    
+
+#İlk olarak png formatındaki görüntümüzü matris biçiminde 0-255 değerleri arasına indirgeyerek matris olarak okuyoruz.#Okuduğumuz görüntüyü griye çevirme işlemi için kullanılan katsayılar ile çarparak görüntüyü griye çeviriyoruz.Ve çevirme işleminden sonra görüntü tekrar normalize olarak 0-255 değerleri arasına çekilir.
+
 img = np.uint8((0.2126* img[:,:,0]) + \
           np.uint8(0.7152 * img[:,:,1]) +\
              np.uint8(0.0722 * img[:,:,2]))
 
-new_img = histeq(img)       #Görüntüyü histeq fonksiyonuna göndererek histogramları eşitlenmiş halini elde ediyoruz. 
+new_img = histeq(img)      
+
+#Görüntüyü histeq fonksiyonuna göndererek histogramları eşitlenmiş halini elde ediyoruz. 
 
 #Son olarak bu görüntüleri ekrana çizdiriyoruz.
-plt.subplot(121)        #plt modülünden subplot fonksiyonu ile görüntünün durması gereken noktayı seçiyoruz.
-plt.imshow(img)         #imshow ile çizdirilecek görüntü gösterilir.
-plt.title('Orjinal Resim')      #Yazılacak olan başlık belirlenir.
-plt.set_cmap('gray')        #Görüntülerin gri düzeyinde gösterilmesini sağlar.
+
+plt.subplot(121)        
+
+#plt modülünden subplot fonksiyonu ile görüntünün durması gereken noktayı seçiyoruz.
+
+plt.imshow(img)         
+
+#imshow ile çizdirilecek görüntü gösterilir.
+
+plt.title('Orjinal Resim')      
+
+#Yazılacak olan başlık belirlenir.
+
+plt.set_cmap('gray')        
+
+#Görüntülerin gri düzeyinde gösterilmesini sağlar.
+
 
 plt.subplot(122)
 plt.imshow(new_img)
